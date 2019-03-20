@@ -36,7 +36,6 @@
   "dependencies": {
     "date-fns": "^1.28.5",
     "fast-glob": "^2.2.6",
-    "fs-extra": "^7.0.1",
     "lodash.flatten": "^4.4.0",
     "lodash.includes": "^4.3.0",
     "node-fetch": "^1.7.1",
