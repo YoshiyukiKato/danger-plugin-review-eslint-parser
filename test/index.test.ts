@@ -1,4 +1,5 @@
-import { aggregate } from "../src"
+import parseEslint from "../src";
+import * as path from "path";
 
 declare const global: any
 beforeEach(() => {
@@ -17,7 +18,9 @@ afterEach(() => {
 })
 
 describe("aggregate", () => {
-  it("is empty test. TBD", () => {
-    aggregate({ reviewFiles: [] });
+  it("is empty test. TBD", async () => {
+    const eslintPath = path.resolve(__dirname, "./fixture/eslint-result.json");
+    const parsed = await parseEslint(eslintPath);
+    console.log(parsed);
   });
 })
