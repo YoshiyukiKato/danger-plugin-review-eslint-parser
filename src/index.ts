@@ -2,12 +2,14 @@ import {IReviewComment, EAction} from "danger-plugin-review-aggregator"
 import {relative} from "path";
 import {CLIEngine, Linter} from "eslint";
 
-const PROJECT_ROOT = process.env.PROJECT_ROOT || process.cwd();
+export function initEslintParser(projectRoot?:string):(eslintReviewResult:string) => Promise<IReviewComment[]>{
+  return parseEslint.bind(null, projectRoot || process.env.PROJECT_ROOT || process.cwd());
+}
 
-export async function parseEslint(eslintReviewResult:string):Promise<IReviewComment[]> {
+async function parseEslint(projectRoot:string, eslintReviewResult:string):Promise<IReviewComment[]> {
   const eslintResults:CLIEngine.LintResult[] = JSON.parse(eslintReviewResult);
   return eslintResults.map(({filePath, messages}) => {
-    const file = relative(PROJECT_ROOT, filePath);
+    const file = relative(projectRoot, filePath);
     return messages.map<IReviewComment>(eslintMessageToReviewComment.bind(null, file));
   }).reduce((acc, comments) => [...acc, ...comments], []);
 }

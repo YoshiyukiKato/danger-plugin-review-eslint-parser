@@ -1,4 +1,5 @@
-import {parseEslint} from "../src";
+import {initEslintParser} from "../src";
+import {readFileSync} from "fs";
 import * as path from "path";
 
 declare const global: any
@@ -18,9 +19,9 @@ afterEach(() => {
 })
 
 describe("aggregate", () => {
-  it("is empty test. TBD", async () => {
+  it("parse eslint result json", async () => {
     const eslintPath = path.resolve(__dirname, "./fixture/eslint-result.json");
-    const parsed = await parseEslint(eslintPath);
-    console.log(parsed);
+    const parsed = await initEslintParser("/var/lib/jenkins/workspace/Releases/eslint Release")(readFileSync(eslintPath).toString());
+    expect(parsed[0].file).toBe("eslint/fullOfProblems.js");
   });
 })
