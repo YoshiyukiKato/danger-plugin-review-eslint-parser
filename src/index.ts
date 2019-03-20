@@ -4,7 +4,7 @@ import {relative} from "path";
 import {CLIEngine, Linter} from "eslint";
 
 
-export default async function parseEslint(eslintResultPath:string):Promise<IReviewComment[]> {
+export async function parseEslint(eslintResultPath:string):Promise<IReviewComment[]> {
   const eslintResults:CLIEngine.LintResult[] = JSON.parse((await readFile(eslintResultPath)).toString());
   return eslintResults.map(({filePath, messages}) => {
     const file = relative(process.cwd(), filePath);

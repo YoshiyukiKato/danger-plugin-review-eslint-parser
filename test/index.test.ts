@@ -1,4 +1,4 @@
-import parseEslint from "../src";
+import {parseEslint} from "../src";
 import * as path from "path";
 
 declare const global: any
